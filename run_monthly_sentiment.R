@@ -38,7 +38,7 @@ PDF_OUT  <- "monthly_tweet_report.pdf"
 
 SB_URL         <- Sys.getenv("SUPABASE_URL")
 SB_STORAGE_KEY <- Sys.getenv("SUPABASE_SERVICE_ROLE")
-SB_BUCKET      <- "monthly-sentiment"
+SB_BUCKET      <- "monthly-numeric"
 
 MJ_API_KEY    <- Sys.getenv("MJ_API_KEY")
 MJ_API_SECRET <- Sys.getenv("MJ_API_SECRET")
@@ -101,7 +101,7 @@ if (str_detect(MAIL_FROM, "<.+@.+>")) {
   from_name  <- str_trim(str_remove(MAIL_FROM, "<.+@.+>$"))
 } else {
   from_email <- MAIL_FROM
-  from_name  <- "Sentiment Bot"
+  from_name  <- "Numeric Bot"
 }
 
 mj_resp <- request("https://api.mailjet.com/v3.1/send") |>
@@ -111,10 +111,10 @@ mj_resp <- request("https://api.mailjet.com/v3.1/send") |>
       From        = list(Email = from_email, Name = from_name),
       To          = list(list(Email = MAIL_TO)),
       Subject     = sprintf(
-        "Monthly Sentiment Report – %s",
+        "Monthly Numeric Report – %s",
         format(month_start, "%B %Y")
       ),
-      TextPart    = "Attached is the monthly Twitter sentiment report.",
+      TextPart    = "Attached is the monthly Twitter numeric report.",
       Attachments = list(list(
         ContentType   = "application/pdf",
         Filename      = file_name,
