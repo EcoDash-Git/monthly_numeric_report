@@ -51,7 +51,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: monthly-sentiment-report
+          name: monthly-numeric-report
           path: |
             *.pdf
             *.html
